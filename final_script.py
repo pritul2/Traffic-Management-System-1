@@ -1,16 +1,11 @@
 import cv2
 import numpy as np
 #from sklearn.externals import joblib
-def fun(x):
-    pass
+
 def calcFrame(x, y):
     frame_time = int((x * 60 + y) * 30)
     return frame_time
-cv2.namedWindow("window")
-cv2.createTrackbar("x","window",0,1000,fun)
-cv2.createTrackbar("y","window",1000,1000,fun)
-cv2.createTrackbar("z","window",0,1000,fun)
-cv2.createTrackbar("w","window",1000,1000,fun)
+
 
 if __name__ == "__main__":
     vid = cv2.VideoCapture('latestData.mp4')
@@ -23,6 +18,8 @@ if __name__ == "__main__":
     # reading the reference image#
     refIm = cv2.imread('refFrame.jpg')
     refIm2 = cv2.cvtColor(refIm, cv2.COLOR_BGR2GRAY)
+    roi = np.ones(refIm2.shape, "uint8")
+    cv2.rectangle(roi, (62, 60), (242, 180), 255, -1)
 
     while vid.get(1) <= lane1_end_time + 1000:
         ret, frame = vid.read()
@@ -35,12 +32,9 @@ if __name__ == "__main__":
 
             # Absolute difference#
             bg = refIm2.copy()
-            x=cv2.getTrackbarPos("x","window")
-            y = cv2.getTrackbarPos("y", "window")
-            z = cv2.getTrackbarPos("z", "window")
-            w = cv2.getTrackbarPos("w", "window")
-            bg=bg[x:y,z:w]
-            gray=gray[x:y,z:w]
+
+            bg=cv2.bitwise_and(bg,roi)
+            gray=cv2.bitwise_and(gray,roi)
             print(gray.shape)
             cv2.imshow("background",bg)
             cv2.waitKey(1)
@@ -65,6 +59,8 @@ if __name__ == "__main__":
             # Finding the area of each contour#
             for i in range(len(contour)):
                 z = cv2.drawContours(vidClone, contour, i, (0, 255, 0))
+                #cv2.imshow("z",z)
+                #cv2.waitKey(1)
                 #area = cv2.contourArea(contour[i])
                 M = cv2.moments(contour[i])
                 cx = int(M['m10'] / M['m00'])
