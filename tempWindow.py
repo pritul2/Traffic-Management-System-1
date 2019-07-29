@@ -30,6 +30,8 @@ if __name__ == "__main__":
     # reading the reference image#
     refIm = cv2.imread('refFrame.jpg')
     refIm2 = cv2.cvtColor(refIm, cv2.COLOR_BGR2GRAY)
+    roi = np.ones(refIm2.shape, "uint8")
+    cv2.rectangle(roi, (62, 60), (242, 180), 255, -1)
 
     while vid.get(1) <= lane1_end_time + 1000:
         ret, frame = vid.read()
@@ -42,12 +44,13 @@ if __name__ == "__main__":
 
             # Absolute difference#
             bg = refIm2.copy()
+       
             x = 0
             y = 1000
             z = 0
             w = 1000
-            bg=bg[x:y,z:w]
-            gray=gray[x:y,z:w]
+            bg=cv2.bitwise_and(bg,roi)
+            gray=cv2.bitwise_and(gray,roi)
             #qprint(gray.shape)
             cv2.imshow("background",bg)
             cv2.waitKey(1)
