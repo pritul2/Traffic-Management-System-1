@@ -80,6 +80,7 @@ if __name__ == "__main__":
                 cv2.putText(vidClone, str(area), (cx - 10, cy - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
             
             #cv2.imshow('temp',temp)
+            #creating the stack window
             st0=np.hstack((temp,vidClone,temp))
             st1=np.hstack((vidClone,temp,vidClone))
             st2=np.hstack((temp,vidClone,temp))
