@@ -12,7 +12,16 @@ def calcFrame(x, y):
 #cv2.createTrackbar("y","window",1000,1000,fun)
 #cv2.createTrackbar("z","window",0,1000,fun)
 #cv2.createTrackbar("w","window",1000,1000,fun)
-
+refIm = cv2.imread('refFrame.jpg')
+temp=refIm.copy()
+for i in range(232):
+        for j in range(302):
+            temp[i][j]=0
+            
+#to create window frame
+st0=np.hstack((temp,temp,temp))
+st1=np.hstack((temp,temp,temp))
+st2=np.hstack((temp,temp,temp))
 if __name__ == "__main__":
     vid = cv2.VideoCapture('latestData.mp4')
     ret, frame = vid.read()
@@ -84,9 +93,9 @@ if __name__ == "__main__":
             
             #cv2.imshow('temp',temp)
             #creating the stack window
-            st0=np.hstack((temp,vidClone,temp))
-            st1=np.hstack((vidClone,temp,vidClone))
-            st2=np.hstack((temp,vidClone,temp))
+            #st0=np.hstack((temp,vidClone,temp))
+            #st1=np.hstack((vidClone,temp,vidClone))
+            #st2=np.hstack((temp,vidClone,temp))
             fWin=np.vstack((st0,st1,st2))
             cv2.imshow('fWin',fWin)
             #cv2.imshow("video clone", vidClone)
