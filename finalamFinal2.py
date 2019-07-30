@@ -102,7 +102,10 @@ if __name__ == "__main__":
         st2=np.hstack((temp,frame3,temp))
         fWin=np.vstack((st0,st1,st2))
         cv2.imshow("frame",fWin)
-        cv2.waitKey(1)
+        keypress = cv2.waitKey(1) & 0xFF
+        # if the user pressed "q", then stop looping
+        if keypress == ord('q'):
+            break
             
        
     #lane2
@@ -116,7 +119,10 @@ if __name__ == "__main__":
         st2=np.hstack((temp,frame3,temp))
         fWin=np.vstack((st0,st1,st2))
         cv2.imshow("frame",fWin)
-        cv2.waitKey(1)
+        keypress = cv2.waitKey(1) & 0xFF
+        # if the user pressed "q", then stop looping
+        if keypress == ord('q'):
+            break
         
     #lane3    
     
@@ -129,7 +135,10 @@ if __name__ == "__main__":
         st2=np.hstack((temp,frame3,temp))
         fWin=np.vstack((st0,st1,st2))
         cv2.imshow("frame",fWin)
-        cv2.waitKey(1)
+        keypress = cv2.waitKey(1) & 0xFF
+        # if the user pressed "q", then stop looping
+        if keypress == ord('q'):
+            break
         
             
     #lane4
@@ -143,10 +152,13 @@ if __name__ == "__main__":
         st2=np.hstack((temp,frame3,temp))
         fWin=np.vstack((st0,st1,st2))
         cv2.imshow("frame",fWin)
-        cv2.waitKey(1)
+        keypress = cv2.waitKey(1) & 0xFF
+        # if the user pressed "q", then stop looping
+        if keypress == ord('q'):
+            break
         
+cv2.destroyAllWindows()
 
-    
 '''
     vid1.set(1, lane2_start_time)
     _,frame2=vid1.read()
